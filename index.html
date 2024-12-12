@@ -3,40 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computer Facts</title>
+    <title>Beautiful Computer Facts</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
             text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            transition: transform 0.5s ease;
         }
 
         .fact-display {
             margin: 20px 0;
-            font-size: 1.2em;
+            font-size: 1.5em;
             color: #333;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .fact-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
         .next-button {
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 12px 24px;
+            font-size: 1.1em;
             color: #fff;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .next-button:hover {
@@ -45,70 +65,47 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="fact-container">
         <h1>Computer Facts</h1>
+        <img id="fact-image" class="fact-image" src="" alt="Fact Image">
         <div id="fact-display" class="fact-display"></div>
         <button id="next-button" class="next-button">Next</button>
     </div>
     <script>
         const facts = [
-            "The first electronic computer, ENIAC, weighed over 27 tons and took up 1,800 square feet.",
-            "The first computer virus was created in 1983 and was called 'Elk Cloner.'",
-            "The term 'computer bug' was popularized by Grace Hopper after a real moth was found causing issues in a computer.",
-            "The first 1GB hard drive was announced in 1980 and weighed over 500 pounds.",
-            "The QWERTY keyboard layout was designed to prevent jamming in mechanical typewriters.",
-            "The first computer mouse was made of wood and invented by Douglas Engelbart in 1964.",
-            "The first known computer programmer was Ada Lovelace in the 19th century.",
-            "The first website ever created was info.cern.ch, launched by Tim Berners-Lee in 1991.",
-            "The original name for Windows was 'Interface Manager.'",
-            "The first email was sent by Ray Tomlinson to himself in 1971.",
-            "The first computer game is considered to be 'Spacewar!' created in 1962.",
-            "The first domain name ever registered was symbolics.com in 1985.",
-            "The first portable computer was the IBM 5100, released in 1975.",
-            "The first graphical web browser was called Mosaic, released in 1993.",
-            "The first computer to defeat a world chess champion was IBM's Deep Blue in 1997.",
-            "The first smartphone was IBM's Simon Personal Communicator, released in 1994.",
-            "The first computer virus for MS-DOS was 'Brain,' created in 1986.",
-            "The first computer with a hard disk drive was the IBM 305 RAMAC in 1956.",
-            "The first computer to use a stored program was the Manchester Baby in 1948.",
-            "The first computer to use transistors was the IBM 7090 in 1959.",
-            "The first computer to use integrated circuits was the IBM System/360 in 1964.",
-            "The first computer to use a mouse and graphical user interface was the Xerox Alto in 1973.",
-            "The first computer to use a touch screen was the HP-150 in 1983.",
-            "The first computer to use a CD-ROM was the Sony CDP-101 in 1982.",
-            "The first computer to use a DVD-ROM was the Toshiba SD-3000 in 1996.",
-            "The first computer to use a USB port was the iMac G3 in 1998.",
-            "The first computer to use Wi-Fi was the Apple iBook in 1999.",
-            "The first computer to use Bluetooth was the Ericsson T36 in 2000.",
-            "The first computer to use a solid-state drive was the SanDisk SSD in 1991.",
-            "The first computer to use a multi-core processor was the IBM POWER4 in 2001.",
-            "The first computer to use a 64-bit processor was the DEC Alpha in 1992.",
-            "The first computer to use a 128-bit processor was the PlayStation 2 in 2000.",
-            "The first computer to use a 256-bit processor was the PlayStation 3 in 2006.",
-            "The first computer to use a 512-bit processor was the PlayStation 4 in 2013.",
-            "The first computer to use a 1024-bit processor was the PlayStation 5 in 2020.",
-            "The first computer to use a quantum processor was the D-Wave One in 2011.",
-            "The first computer to use a neural processor was the Google TPU in 2016.",
-            "The first computer to use a photonic processor was the Lightmatter Envise in 2020.",
-            "The first computer to use a DNA processor was the Caltech DNA computer in 1994.",
-            "The first computer to use a memristor was the HP memristor in 2008.",
-            "The first computer to use a spintronic processor was the Purdue spintronic computer in 2019.",
-            "The first computer to use a carbon nanotube processor was the Stanford CNT computer in 2013.",
-            "The first computer to use a graphene processor was the IBM graphene computer in 2010.",
-            "The first computer to use a superconducting processor was the IBM superconducting computer in 2019.",
-            "The first computer to use a topological processor was the Microsoft topological computer in 2020.",
-            "The first computer to use a neuromorphic processor was the Intel Loihi in 2017.",
-            "The first computer to use a brain-computer interface was the Neuralink N1 in 2020.",
-            "The first computer to use a holographic display was the Microsoft HoloLens in 2016.",
-            "The first computer to use an augmented reality display was the Google Glass in 2013.",
-            "The first computer to use a virtual reality display was the Oculus Rift in 2012."
+            { text: "The first electronic computer, ENIAC, weighed over 27 tons and took up 1,800 square feet.", image: "https://via.placeholder.com/600x400?text=ENIAC" },
+            { text: "The first computer virus was created in 1983 and was called 'Elk Cloner.'", image: "https://via.placeholder.com/600x400?text=Elk+Cloner" },
+            { text: "The term 'computer bug' was popularized by Grace Hopper after a real moth was found causing issues in a computer.", image: "https://via.placeholder.com/600x400?text=Computer+Bug" },
+            { text: "The first 1GB hard drive was announced in 1980 and weighed over 500 pounds.", image: "https://via.placeholder.com/600x400?text=1GB+Hard+Drive" },
+            { text: "The QWERTY keyboard layout was designed to prevent jamming in mechanical typewriters.", image: "https://via.placeholder.com/600x400?text=QWERTY+Keyboard" },
+            { text: "The first computer mouse was made of wood and invented by Douglas Engelbart in 1964.", image: "https://via.placeholder.com/600x400?text=Wooden+Mouse" },
+            { text: "The first known computer programmer was Ada Lovelace in the 19th century.", image: "https://via.placeholder.com/600x400?text=Ada+Lovelace" },
+            { text: "The first website ever created was info.cern.ch, launched by Tim Berners-Lee in 1991.", image: "https://via.placeholder.com/600x400?text=First+Website" },
+            { text: "The original name for Windows was 'Interface Manager.'", image: "https://via.placeholder.com/600x400?text=Interface+Manager" },
+            { text: "The first email was sent by Ray Tomlinson to himself in 1971.", image: "https://via.placeholder.com/600x400?text=First+Email" },
+            { text: "The first computer game is considered to be 'Spacewar!' created in 1962.", image: "https://via.placeholder.com/600x400?text=Spacewar" },
+            { text: "The first domain name ever registered was symbolics.com in 1985.", image: "https://via.placeholder.com/600x400?text=Symbolics.com" },
+            { text: "The first portable computer was the IBM 5100, released in 1975.", image: "https://via.placeholder.com/600x400?text=IBM+5100" },
+            { text: "The first graphical web browser was called Mosaic, released in 1993.", image: "https://via.placeholder.com/600x400?text=Mosaic+Browser" },
+            { text: "The first computer to defeat a world chess champion was IBM's Deep Blue in 1997.", image: "https://via.placeholder.com/600x400?text=Deep+Blue" },
+            { text: "The first smartphone was IBM's Simon Personal Communicator, released in 1994.", image: "https://via.placeholder.com/600x400?text=IBM+Simon" },
+            { text: "The first computer virus for MS-DOS was 'Brain,' created in 1986.", image: "https://via.placeholder.com/600x400?text=Brain+Virus" },
+            { text: "The first computer with a hard disk drive was the IBM 305 RAMAC in 1956.", image: "https://via.placeholder.com/600x400?text=IBM+305+RAMAC" },
+            { text: "The first computer to use a stored program was the Manchester Baby in 1948.", image: "https://via.placeholder.com/600x400?text=Manchester+Baby" },
+            { text: "The first computer to use transistors was the IBM 7090 in 1959.", image: "https://via.placeholder.com/600x400?text=IBM+7090" }
         ];
 
         let currentFactIndex = 0;
 
         function displayFact(index) {
             const factDisplay = document.getElementById('fact-display');
-            factDisplay.textContent = facts[index];
+            const factImage = document.getElementById('fact-image');
+            factDisplay.style.opacity = 0;
+            setTimeout(() => {
+                factDisplay.textContent = facts[index].text;
+                factImage.src = facts[index].image;
+                factDisplay.style.opacity = 1;
+            }, 500);
         }
 
         document.getElementById('next-button').addEventListener('click', () => {
