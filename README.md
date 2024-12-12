@@ -19,6 +19,6 @@ You will need a web browser to view the application. No additional software is r
 ### Installation
 
 1. Clone the repository to your local machine using:
-   ```bash
+```bash
    git clone https://github.com/your-username/computer-facts-viewer.git
 ```
